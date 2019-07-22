@@ -3,7 +3,7 @@ const express = require('express');
 const request = require('request');
 const path = require('path');
 const Blockchain = require('./blockchain');
-const PubSub = require('./app/pubsub');
+const PubSub = require('./app/pubsub.pubnub');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
@@ -20,8 +20,8 @@ const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
-const pubsub = new PubSub({ blockchain, transactionPool, redisUrl: REDIS_URL });
-// const pubsub = new PubSub({ blockchain, transactionPool, wallet }); // for PubNub
+// const pubsub = new PubSub({ blockchain, transactionPool, redisUrl: REDIS_URL });
+const pubsub = new PubSub({ blockchain, transactionPool, wallet }); // for PubNub
 const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
 app.use(bodyParser.json());
@@ -144,7 +144,9 @@ const syncWithRootState = () => {
   });
 };
 
-if (isDevelopment) {
+/*
+if (isDevelopment && !process.env.GENERATE_PEER_POR0T) {
+  
   const walletFoo = new Wallet();
   const walletBar = new Wallet();
 
@@ -183,6 +185,7 @@ if (isDevelopment) {
     transactionMiner.mineTransactions();
   }
 }
+*/
 
 let PEER_PORT;
 

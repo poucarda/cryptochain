@@ -1,9 +1,17 @@
 const PubNub = require('pubnub');
 
+/*
 const credentials = {
   publishKey: 'pub-c-ec30f7ec-578f-4aa2-81c8-59077fb942c4',
   subscribeKey: 'sub-c-eda4e664-027b-11e9-a39c-e60c31199fb2',
   secretKey: 'sec-c-OWQwMTg1MGMtY2U2YS00ZmVlLWE1YmEtOTVmMWZmN2ZiOWVm'
+};
+*/
+
+const credentials = {
+  publishKey: 'pub-c-5c1a674a-8312-4822-9d1c-62f304d635e7',
+  subscribeKey: 'sub-c-ceafd5b6-ac85-11e9-adf1-0649e4155de4',
+  secretKey: 'sec-c-NzMyZDA4YmItZWQ5Zi00NjUxLTlkMjgtNjE0YzcwYzQ0Njhk'
 };
 
 const CHANNELS = {
@@ -57,7 +65,7 @@ class PubSub {
           case CHANNELS.BLOCKCHAIN:
             this.blockchain.replaceChain(parsedMessage, true, () => {
               this.transactionPool.clearBlockchainTransactions(
-                { chain: parsedMessage.chain }
+                 { chain: parsedMessage } 
               );
             });
             break;
@@ -79,7 +87,9 @@ class PubSub {
     // there is an unsubscribe function in pubnub
     // but it doesn't have a callback that fires after success
     // therefore, redundant publishes to the same local subscriber will be accepted as noisy no-ops
-    this.pubnub.publish({ message, channel });
+    this.pubnub.publish({ message, channel }).catch(error => {
+      console.log(error);
+    });
   }
 
   broadcastChain() {

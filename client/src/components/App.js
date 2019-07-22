@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png';
+// import logo from '../assets/logo.png';
+// import logo from '../assets/vecozo.png';
 
 class App extends Component {
   state = { walletInfo: {} };
@@ -16,15 +17,13 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <img className='logo' src={logo}></img>
-        <br />
         <div>
-          Welcome to the blockchain...
+          Welkom bij de blockchain DEMO...
         </div>
         <br />
-        <div><Link to='/blocks'>Blocks</Link></div>
-        <div><Link to='/conduct-transaction'>Conduct a Transaction</Link></div>
-        <div><Link to='/transaction-pool'>Transaction Pool</Link></div>
+        <div><Link to='/blocks'>Bekijk Blocks in de blockchain</Link></div>
+        <div><Link to='/conduct-transaction'>Voer een Transaction uit</Link></div>
+        <div><Link to='/transaction-pool'>Bekijk de Transaction Pool</Link></div>
         <br />
         <div className='WalletInfo'>
           <div>Address: {address}</div>

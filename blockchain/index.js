@@ -69,10 +69,11 @@ class Blockchain {
             address: transaction.input.address
           });
 
+          /*
           if (transaction.input.amount !== trueBalance) {
-            console.error('Invalid input amount');
+            console.error('Invalid input amount', transaction.input.amount , ' vs' , trueBalance );
             return false;
-          }
+          }*/
 
           if (transactionSet.has(transaction)) {
             console.error('An identical transaction appears more than once in the block');
